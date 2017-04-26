@@ -138,11 +138,7 @@ pub fn max_palindrome() -> u64 {
 
 // 欧几里德算法求两个数的最大公约数
 fn gcd(a: u32, b: u32) -> u32 {
-    if b == 0 {
-        a
-    }else{
-        gcd(b, a % b)
-    }
+    if b == 0 { a } else { gcd(b, a % b) }
 }
 
 // 求多个数的最大公约数

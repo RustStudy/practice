@@ -28,7 +28,7 @@ fn fib(n: i64) -> i64 {
     if n < 0 { panic!("{} is negative!", n); }
     match n {
         0     => panic!("zero is not a right argument to fib()!"),
-        1      => 1,
+        1     => 1,
         2     =>  2,
         _     => fib(n - 1) + fib(n - 2)
     }

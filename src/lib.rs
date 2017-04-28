@@ -451,6 +451,11 @@ pub fn regex_replace() {
 // 可以把vector分组为一个二维数组
 // let mut v = [1,2,3,4,5,6,7,8,9];
 // let r = group_by(&v, 2);
+// 官方提供类似方法： chunks()
+// let slice = ['l', 'o', 'r', 'e', 'm'];
+// let mut iter: Vec<_> = slice.chunks(2).collect();
+// println!("{:?}", iter);
+
 fn group_by<'a> (v: &'a [u64], n: usize) -> Vec<&'a[u64]>{
     let mut new_v = vec![];
     group(new_v, v, n)

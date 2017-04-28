@@ -84,3 +84,9 @@ fn problem10() {
     assert_eq!(practice::sum_of_primes(100), 1060);
     assert_eq!(practice::sum_of_primes(2000000), 142913828922);
 }
+
+#[test]
+fn problem11() {
+    assert_eq!(practice::regex_replace(), ());
+    assert_eq!(practice::largest_product_11(), ());
+}

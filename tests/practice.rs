@@ -90,3 +90,8 @@ fn problem11() {
     assert_eq!(practice::regex_replace(), ());
     assert_eq!(practice::largest_product_11(), 70600674);
 }
+
+#[test]
+fn problem12() {
+    assert_eq!(practice::solve(), 76576500);
+}

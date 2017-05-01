@@ -121,27 +121,27 @@ pub fn max_palindrome() -> u64 {
 // What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
 // 纯遍历性能很差
-// pub fn smallest_multiple() -> usize {
-//     let mut n: usize = 2520;
-//
-//     let mut min = 0;
-//     while min == 0 {
-//         let mut v: [bool; 20] = [true; 20];
-//         for i in 1..21 {
-//             if n % i != 0 {
-//                 v[i-1] = false;
-//             }
-//         }
-//         if v.contains(&false) {
-//             println!("n: {}", n);
-//             n = n+1
-//         }else{
-//             min = n;
-//             println!("min: {}", min);
-//         }
-//     }
-//     min
-// }
+pub fn smallest_multiple() -> usize {
+    let mut n: usize = 2520;
+
+    let mut min = 0;
+    while min == 0 {
+        let mut v: [bool; 20] = [true; 20];
+        for i in 1..21 {
+            if n % i != 0 {
+                v[i-1] = false;
+            }
+        }
+        if v.contains(&false) {
+            println!("n: {}", n);
+            n = n+1
+        }else{
+            min = n;
+            println!("min: {}", min);
+        }
+    }
+    min
+}
 
 // 优化：求几个数的最小公倍数。
 // 一个整数要能被1-10的所有整数整除，那么就等同于他能被1-10之间的所有素数整除
@@ -175,7 +175,6 @@ pub fn lcm(v: Vec<u32>) -> u32 {
         num = x / _gcd * y / _gcd * _gcd;
     }
     num
-
 }
 
 // Problem6: Sum square difference
@@ -536,3 +535,42 @@ pub fn largest_product_11() -> u64 {
 // We can see that 28 is the first triangle number to have over five divisors.
 //
 // What is the value of the first triangle number to have over five hundred divisors?
+
+//  得到前面的三角数：n * (n + 1) / 2;
+fn triangular_number(n: u64) -> u64{
+    n * (n + 1) / 2
+}
+
+// 找出n的约数（整除因数）个数，如果大于500，则是我们要找的
+// 36: 1 2 3 4 6 9 12 18 36
+// 遍历法
+fn divisor(n: u64) -> bool {
+    let mut i = 1;
+    let mut sum = 0;
+    // 比如遍历到6*6=36就到顶了，此时sum算两个数
+    while i*i < n{
+        if n % i == 0 { sum += 2}
+        i += 1
+    }
+    // 比如6*6=36
+    if i*i == n {sum += 1}
+    println!("{:?}", sum);
+    if sum > 500 { true } else { false }
+}
+
+pub fn solve() -> u64{
+    let mut i = 1;
+    let num: u64;
+    loop{
+        if divisor(triangular_number(i)) {
+            num = triangular_number(i);
+            break;
+        }
+        i += 1;
+    }
+    num
+}
+
+// 另一种解法：因子分解算法
+// 比如 45= 3^2×5^1，则45可以被3^0 ×5^0，3^0×5^1，3^1×5^0，3^1×5^1，3^2×5^0，和3^2×5^1，或者 1，5，3，9，15，和 45整除
+// 对n进行不断自加，找到一个数，里面的所有因子的指数加一 相乘大于500.比如上面的45，其实就是(2 + 1) * (1 + 1) = 6.

@@ -554,7 +554,7 @@ fn divisor(n: u64) -> bool {
     }
     // 比如6*6=36
     if i*i == n {sum += 1}
-    println!("{:?}", sum);
+    // println!("{:?}", sum);
     if sum > 500 { true } else { false }
 }
 

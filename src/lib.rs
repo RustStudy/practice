@@ -30,7 +30,8 @@ pub fn multiples_3_and_5_sum(n: i64) -> i64 {
 // By considering the terms in the Fibonacci sequence whose values do not exceed four million,
 // find the sum of the even-valued terms.
 
-fn fib(n: i64) -> i64 {
+// 递归版本 （时间复杂度 O(2^n)，非常慢）
+fn fib_recursion(n: i64) -> i64 {
     if n < 0 {
         panic!("{} is negative!", n);
     }
@@ -38,8 +39,20 @@ fn fib(n: i64) -> i64 {
         0 => panic!("zero is not a right argument to fib()!"),
         1 => 1,
         2 => 2,
-        _ => fib(n - 1) + fib(n - 2),
+        _ => fib_recursion(n - 1) + fib_recursion(n - 2),
     }
+}
+
+// 动态规划(由自顶向下递归改为自底向上迭代： 时间复杂度O(n))
+pub fn fib(mut n: i64) -> i64 {
+    let mut f = 0;
+    let mut g = 1;
+    while n > 0 {
+        g = g + f;
+        f = g - f;
+        n -= 1;
+    }
+    g
 }
 
 pub fn even_fib_nums(n: i64) -> i64 {

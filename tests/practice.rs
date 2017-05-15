@@ -98,3 +98,8 @@ fn problem12() {
 fn problem13() {
     assert_eq!(practice::level1::big_sum(), "5537376230");
 }
+
+#[test]
+fn problem14() {
+    assert_eq!(practice::level1::longest_collatz_sequence(), 837799);
+}

@@ -816,3 +816,85 @@ pub fn big_sum() -> String {
     }
     first_10.into()
 }
+
+
+/*
+Problem 14: Longest Collatz sequence
+
+The following iterative sequence is defined for the set of positive integers:
+
+n → n/2 (n is even)
+n → 3n + 1 (n is odd)
+
+Using the rule above and starting with 13, we generate the following sequence:
+
+13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
+It can be seen that this sequence (starting at 13 and finishing at 1) contains 10 terms. Although it has not been proved yet (Collatz Problem), it is thought that all starting numbers finish at 1.
+
+Which starting number, under one million, produces the longest chain?
+
+NOTE: Once the chain starts the terms are allowed to go above one million.
+
+
+http://pe-cn.github.io/14/
+
+## 最长考拉兹序列
+
+在正整数集上定义如下的迭代序列：
+
+n → n/2 （若n为偶数）
+n → 3n + 1 （若n为奇数）
+
+从13开始应用上述规则，我们可以生成如下的序列：
+
+13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
+可以看出这个序列（从13开始到1结束）共有10项。尽管还没有被证明，但我们普遍认为，从任何数开始最终都能迭代至1（“考拉兹猜想”）。
+
+从小于一百万的哪个数开始，能够生成最长的序列呢？
+
+注： 序列开始生成后允许其中的项超过一百万。
+
+
+按「算法」的严格定义，求最长考拉兹序列的算法不是严格意义上的算法，因为缺乏有穷性证明。
+*/
+
+struct Collatz {
+    i: u64
+}
+
+impl Collatz {
+    fn new(starting_point: u64) -> Collatz {
+        Collatz { i: starting_point }
+    }
+}
+
+impl Iterator for Collatz {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.i == 0 {
+            return None;
+        }
+
+        let current = self.i;
+
+        self.i = match self.i {
+            1 => 0,
+            _ => match self.i & 1 {
+                0 => self.i / 2,
+                _ => 3 * self.i + 1
+            }
+        };
+
+        Some(current)
+    }
+}
+
+// 性能不太好，还可以通过减少重复计算来进行优化
+pub fn longest_collatz_sequence_1() -> u64 {
+    let max = 1_000_000;
+    let mut c: Vec<Vec<u64>> = (1..max).map(|x| Collatz::new(x).collect()).collect();
+    c.sort_by(|a, b| b.len().cmp(&a.len()));
+    println!("The Collatz Sequence with the longest sequence under {} is {} with sequence length of: {}", max, c[0][0], c[0].len());
+    c[0][0]
+}

@@ -880,7 +880,7 @@ impl Iterator for Collatz {
 
         self.i = match self.i {
             1 => 0,
-            _ => match self.i & 1 {
+            _ => match self.i & 1 { // 使用 i&1 == 0判断奇偶性，性能可提升一半
                 0 => self.i / 2,
                 _ => 3 * self.i + 1
             }

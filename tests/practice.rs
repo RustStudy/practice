@@ -101,5 +101,5 @@ fn problem13() {
 
 #[test]
 fn problem14() {
-    assert_eq!(practice::level1::longest_collatz_sequence(), 837799);
+    assert_eq!(practice::level1::longest_collatz_sequence_1(), 837799);
 }

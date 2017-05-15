@@ -5,3 +5,4 @@ authors = ["blackanger <blackanger.z@gmail.com>"]
 
 [dependencies]
 regex = "0.2.1"
+num = "*"
